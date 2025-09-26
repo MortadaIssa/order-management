@@ -17,6 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Tests", "tests\OrderManagement.Tests\OrderManagement.Tests.csproj", "{246C4400-3934-40B1-998E-E4A6B9F899E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,5 +102,8 @@ Global
 		{829BA9BA-C823-4F09-A112-23E5A7E68EDE} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{114BE7BA-A4AE-47B1-9D95-45278F3E54E4} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{246C4400-3934-40B1-998E-E4A6B9F899E8} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD53B701-5593-49B9-A9DB-FFAFA4EE4FC8}
 	EndGlobalSection
 EndGlobal

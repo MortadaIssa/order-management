@@ -1,12 +1,16 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace OrderManagement.Domain.Entities
 {
     public class User
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Name { get; set; } = default!;
-        public string Email { get; set; } = default!;
-        public string PasswordHash { get; set; } = default!;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string Name { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string PasswordHash { get; set; } = null!;
+        public string Salt { get; set; } = null!;
+
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

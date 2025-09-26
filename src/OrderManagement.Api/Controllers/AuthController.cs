@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OrderManagement.Application.DTOs;
+using System.Threading.Tasks;
+using OrderManagement.Application.DTOs.Auth;
+using OrderManagement.Application.Features.Users;
 using OrderManagement.Application.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace OrderManagement.Api.Controllers
 {
@@ -8,39 +11,23 @@ namespace OrderManagement.Api.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly RegisterUserHandler _registerHandler;
         private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IUserService userService, ILogger<AuthController> logger)
+        public AuthController(RegisterUserHandler registerHandler, ILogger<AuthController> logger)
         {
-            _userService = userService;
+            _registerHandler = registerHandler;
             _logger = logger;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto dto, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
-            if (dto == null) return BadRequest("Payload is required.");
+            // FluentValidation will run automatically via middleware configured in Program.cs
+            var (user, token) = await _registerHandler.HandleAsync(dto);
+            _logger.LogInformation("User registered: {UserId}", user.Id);
 
-            // minimal validation - you will add FluentValidation later
-            if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password))
-                return BadRequest("Email and password are required.");
-
-            try
-            {
-                var user = await _userService.RegisterAsync(dto, cancellationToken);
-                return CreatedAtAction(null, new { id = user.Id }, user);
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Registration conflict for {Email}", dto.Email);
-                return Conflict(new { message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unexpected error during registration.");
-                return StatusCode(500, new { message = "An error occurred." });
-            }
+            return Created(string.Empty, new { user.Id, token });
         }
     }
 }

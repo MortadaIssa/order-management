@@ -8,5 +8,6 @@ namespace OrderManagement.Application.Interfaces
     {
         Task<User> RegisterAsync(RegisterUserDto dto);
         string CreateToken(User user);
+        Task<User?> LoginAsync(string email, string password);
     }
 }

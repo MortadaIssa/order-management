@@ -68,6 +68,25 @@ namespace OrderManagement.Application.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public async Task<User?> LoginAsync(string email, string password)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+            if (user == null) return null;
+
+            // retrieve salt and verify password using the same HMACSHA256 approach
+            var salt = Convert.FromBase64String(user.Salt);
+            using var hmac = new HMACSHA256(salt);
+            var hashed = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var hashedBase64 = Convert.ToBase64String(hashed);
+
+            if (hashedBase64 != user.PasswordHash)
+            {
+                return null; // invalid credentials
+            }
+
+            return user;
+        }
+
         private static byte[] GenerateSalt()
         {
             using var rng = RandomNumberGenerator.Create();

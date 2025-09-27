@@ -142,7 +142,8 @@ The service is also exposed on a public azure portal link. You can access it usi
 http://ordermanagement-mortadaissa-2025.azurewebsites.net/swagger/index.html
 
 > If you need to test it online, you can also find a postman collection and environments under the repository postman-collection directory that are prepared for online test calls
-> 
+> - [Test Order Management -- Online.postman_collection.json](https://github.com/MortadaIssa/order-management/blob/3a53d5e9a695376725db7808b6813675c24c95a9/postman-collections/Test%20Order%20Management%20--%20Online.postman_collection.json)
+> - [Env Order Management -- Online.postman_environment.json](https://github.com/MortadaIssa/order-management/blob/3a53d5e9a695376725db7808b6813675c24c95a9/postman-collections/Env%20Order%20Management%20--%20Online.postman_environment.json)
 
 ---
 

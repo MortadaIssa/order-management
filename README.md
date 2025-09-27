@@ -62,18 +62,15 @@ Install the following on your machine to run locally:
     dotnet build
     ```
     
-3. Update configuration (optional):
-    - By default the API uses SQLite with connection string Data Source=assessment.db.
-    - To override, set ConnectionStrings__DefaultConnection (or appsettings.json) to your chosen path.
-4. Use Existing assessment.db and existing migrations (faster) and directly run the API
+3. Use the existing assessment.db and existing migrations (faster) and directly run the API
     
     ```bash
     cd src
     dotnet run --project OrderManagement.Api
     ```
     
-5. Open Swagger (default): `http://localhost:5275/swagger/index.html` (or port shown in console).
-6. In case you want to run it from visual studio in debug mode (F5), you will be redirected to  `https://localhost:7040/swagger/index.html`
+4. Open Swagger (default): `http://localhost:5275/swagger/index.html` (or port shown in console).
+5. In case you want to run it from visual studio in debug mode (F5), you will be redirected to  `https://localhost:7040/swagger/index.html`
 
 ---
 
@@ -182,3 +179,71 @@ curl -X POST "https://ordermanagement-mortadaissa-2025.azurewebsites.net/api/ord
 curl -X GET "https://ordermanagement-mortadaissa-2025.azurewebsites.net/api/orders/<order-id>" \
  -H "Authorization: Bearer <TOKEN>"
 ```
+
+---
+
+## Architectural Decisions
+
+Below are the main decisions I made and the reasons behind them.
+
+### Layering / Clean Architecture
+
+- **Projects:** `Domain`, `Application`, `Infrastructure`, `Api`, `Tests`.
+    
+    **Reason:** This separation keeps domain models and business logic isolated from infrastructure (EF, configuration, logging) and the API layer. It makes testing and reasoning about code easier and is a common interview expectation.
+    
+
+### DTOs, Validation, and Mapping
+
+- **DTOs** are used for input/output to decouple the external contract from EF entities.
+- **FluentValidation** validates DTOs at the API boundary.
+    
+    **Reason:** To avoid exposing internal domain models and to prevent object graph cycles during serialization.
+    
+
+### Repositories and Handlers (CQRS-like)
+
+- **Repository pattern** (generic base + concrete `UserRepository`, `OrderRepository`) used for persistence abstraction.
+- **Handlers** (`RegisterUserHandler`, `CreateOrderHandler`) implement command-like logic (validate/use services/repositories).
+    
+    **Reason:** Provides clear single-responsibility components and makes unit testing straightforward.
+    
+
+### Authentication - JWT & Login
+
+- Although the assessment did not require JWT, I implemented JWT Bearer authentication for order endpoints.
+- I added both `register` and `login` endpoints. I chose to include `login` so the client can obtain tokens after registration and after token expiry—this is more robust for a live demo.
+    
+    **Reason:** Tokens are stateless and survive app restarts so long as the secret does not change; however, tokens expire and it is good practice to enable login to re-issue tokens.
+    
+
+### Persistence - SQLite (Code-First)
+
+- **SQLite** chosen for simplicity and quick deployability to App Service (no external DB required for demo).
+    
+    **Reason:** Fast to set up and portable for a demo. Not intended as production DB for scaled apps.
+    
+
+### Logging & Error handling
+
+- Simple console-based `LoggingService` is included as a placeholder; in production I would use a structured logging provider (Serilog/ELK/Azure Monitor).
+    
+    **Reason:** Keep the sample small, readable and hosting-friendly while demonstrating extension points.
+    
+
+### Simplicity vs production complexity
+
+- I intentionally kept the project small and functional rather than adding complexity (refresh tokens, distributed DB, full identity, etc.). This trade-off is appropriate for an assessment where clarity and working deployment are important.
+
+---
+
+## Assumptions
+
+- **Client**: The API is intended to be consumed by a web or mobile client. For example, a React SPA with:
+    - a registration page calling `POST /api/auth/register`,
+    - a login page calling `POST /api/auth/login`,
+    - and protected pages that call `/api/orders` with `Authorization: Bearer <token>`.
+- **Database**: SQLite is acceptable for the assessment demo. For production, a managed RDBMS (Azure SQL / PostgreSQL) would be used.
+- **Token storage**: Clients are expected to store the JWT securely (HttpOnly cookie or secure storage for mobile). The README assumes a basic demo usage where the token is stored in memory or in local Dev tools for testing.
+- **Single instance**: The deployed app runs as a single App Service instance for the demo. Multi-instance scaling with file-backed SQLite is not supported in this configuration.
+- **Secrets**: The JWT secret is stored in Azure App Service Application Settings. The secret must be kept private and should be rotated in production.

@@ -146,7 +146,7 @@ http://ordermanagement-mortadaissa-2025.azurewebsites.net/swagger/index.html
 
 ---
 
-### Below are CURL Examples (alternative of postman)
+### Below are CURL Examples (GIT BASH Not PowerShell - alternative of postman)
 
 **Register**
 

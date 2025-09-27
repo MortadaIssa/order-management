@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "85190a9c-7982-46e5-a299-57698ee0ba7a",
+		"name": "Test Order Management -- Online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "635443"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Bob Charleston\",\r\n  \"email\": \"bob@example.com\",\r\n  \"password\": \"P@ssw0rd123\",\r\n  \"confirmPassword\": \"P@ssw0rd123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/Auth/register",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"Auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"bob@example.com\",\r\n  \"password\": \"P@ssw0rd123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/Auth/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"Auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"items\": [\r\n    {\r\n      \"name\": \"Item1\",\r\n      \"price\": 3,\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"name\": \"Item2\",\r\n      \"price\": 5,\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/Orders",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"Orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/Orders/66757d1f-3043-4544-ab25-fc9540b85a59",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"Orders",
+						"66757d1f-3043-4544-ab25-fc9540b85a59"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

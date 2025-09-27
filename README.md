@@ -115,8 +115,8 @@ A Postman collection is provided to help you quickly test the API endpoints.
 2. Import it into Postman:
     - In Postman, click **Import** > **File** > select the `.json` file.
     - Optionally, import the environment file: [Env Order Management -- Local.postman_environment.json](https://github.com/MortadaIssa/order-management/blob/4c691432e11ccd46d569f7f854a187ae1273eb61/postman-collections/Env%20Order%20Management%20--%20Local.postman_environment.json)
-3. Set the `baseUrl` variable in the environment to point to your API instance.
-4. Set the `token` variable in the environment to the one that you get from register or login — Make sure to add the Bearer keyword before the token
+3. Set the `baseUrl` variable in the environment to point to your API instance (in this case: http://localhost:5275)
+4. Set the `token` variable in the environment to the one that you get from register or login — Make sure to add the `Bearer` keyword before the token
 You can now run requests directly in Postman.
 
 ---

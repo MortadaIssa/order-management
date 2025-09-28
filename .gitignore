@@ -32,6 +32,6 @@ TestResult*/
 # Mac/Windows system files
 .DS_Store
 Thumbs.db
-/src/OrderManagement.Api/assessment.db
-/src/OrderManagement.Api/assessment.db-shm
-/src/OrderManagement.Api/assessment.db-wal
+*.db
+*.db-shm
+*.db-wal

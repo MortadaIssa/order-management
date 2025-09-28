@@ -111,7 +111,7 @@ Install the following on your machine to run locally:
 A Postman collection is provided to help you quickly test the API endpoints.
 
 1. Download the collection file from:
-    - [Test Order Management -- Local.postman_collection.json](https://github.com/MortadaIssa/order-management/blob/4c691432e11ccd46d569f7f854a187ae1273eb61/postman-collections/Test%20Order%20Management%20--%20Local.postman_collection.json)
+    - [Test Order Management -- Local.postman_collection.json](https://github.com/MortadaIssa/order-management/blob/1b79e56439d5acb7d6d33d8dc65cc522025d4e85/postman-collections/Test%20Order%20Management%20--%20Local.postman_collection.json)
 2. Import it into Postman:
     - In Postman, click **Import** > **File** > select the `.json` file.
     - Optionally, import the environment file: [Env Order Management -- Local.postman_environment.json](https://github.com/MortadaIssa/order-management/blob/4c691432e11ccd46d569f7f854a187ae1273eb61/postman-collections/Env%20Order%20Management%20--%20Local.postman_environment.json)
@@ -141,7 +141,7 @@ The service is also exposed on a public azure portal link. You can access it usi
 http://ordermanagement-mortadaissa-2025.azurewebsites.net/swagger/index.html
 
 > If you need to test it online, you can also find a postman collection and environments under the repository postman-collection directory that are prepared for online test calls
-> - [Test Order Management -- Online.postman_collection.json](https://github.com/MortadaIssa/order-management/blob/3a53d5e9a695376725db7808b6813675c24c95a9/postman-collections/Test%20Order%20Management%20--%20Online.postman_collection.json)
+> - [Test Order Management -- Online.postman_collection.json](https://github.com/MortadaIssa/order-management/blob/1b79e56439d5acb7d6d33d8dc65cc522025d4e85/postman-collections/Test%20Order%20Management%20--%20Online.postman_collection.json)
 > - [Env Order Management -- Online.postman_environment.json](https://github.com/MortadaIssa/order-management/blob/3a53d5e9a695376725db7808b6813675c24c95a9/postman-collections/Env%20Order%20Management%20--%20Online.postman_environment.json)
 
 ---

@@ -21,7 +21,7 @@ namespace OrderManagement.Application.Features.Users
             var user = await _authService.RegisterAsync(dto);
             var token = _authService.CreateToken(user);
 
-            _loggingService.LogAudit($"User registered: {user.Id}");
+            await _loggingService.LogInfoAsync("Audit", $"User registered: {user.Id}");
 
             return (user, token);
         }

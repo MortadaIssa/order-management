@@ -3,7 +3,7 @@ namespace OrderManagement.Application.Interfaces
 {
     public interface ILoggingService
     {
-        void LogError(string message);
-        void LogAudit(string message);
+        Task LogInfoAsync(string category, string message, string? userId = null, string? data = null);
+        Task LogErrorAsync(string category, string message, Exception? ex = null, string? userId = null, string? data = null);
     }
 }

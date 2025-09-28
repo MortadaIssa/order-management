@@ -27,7 +27,7 @@ namespace OrderManagement.Application.Features.Orders
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
-                _loggingService.LogError($"User not found: {userId}");
+                await _loggingService.LogErrorAsync("Errors", $"User not found: {userId}", null, userId.ToString());
                 throw new InvalidOperationException("User not found.");
             }
 
@@ -55,7 +55,7 @@ namespace OrderManagement.Application.Features.Orders
 
             await _orderRepository.AddAsync(order);
 
-            _loggingService.LogAudit($"Order created: {order.Id} by user {userId}");
+            await _loggingService.LogInfoAsync("Audit", $"Order created: {order.Id}", null, userId.ToString());
 
             return order;
         }

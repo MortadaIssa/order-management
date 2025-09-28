@@ -13,6 +13,7 @@ namespace OrderManagement.Infrastructure.Data
         public DbSet<User> Users => Set<User>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+        public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +50,17 @@ namespace OrderManagement.Infrastructure.Data
                  .WithMany(o => o.Items)
                  .HasForeignKey(oi => oi.OrderId)
                  .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<AuditLog>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.Property(x => x.Timestamp).IsRequired();
+                b.Property(x => x.Level).HasMaxLength(32).IsRequired();
+                b.Property(x => x.Category).HasMaxLength(200);
+                b.Property(x => x.Message).IsRequired();
+                b.Property(x => x.Exception);
+                b.HasIndex(x => x.Timestamp);
             });
         }
     }

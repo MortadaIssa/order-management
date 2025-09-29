@@ -18,7 +18,7 @@ namespace OrderManagement.Api.Controllers
 
         public AuthController(RegisterUserHandler registerHandler, IAuthService authService, ILogger<AuthController> logger)
         {
-            //Test Commit again
+            //Test Commit again and again
             _registerHandler = registerHandler;
             _authService = authService;
             _logger = logger;
